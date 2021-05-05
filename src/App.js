@@ -5,6 +5,7 @@ import React from 'react';
 class App extends React.Component {
   state = {
     result: 0,
+    numPress: 0,
     firstNumber: 0,
     secondNumber: 0,
     mathsFunction: "blank"
@@ -14,95 +15,69 @@ class App extends React.Component {
     this.setState({result: this.state.result = 0})
     this.setState({firstNumber: this.state.firstNumber = 0})
   }
-  one = () => {
-    this.setState({result: this.state.result = 1})
+
+  numbers = () => {
     if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 1})
+      if (this.state.firstNumber === 0) {
+        this.setState({firstNumber: this.state.firstNumber = this.state.numPress})
+      }
+      else {
+        this.setState({firstNumber: this.state.firstNumber = this.state.firstNumber * 10});
+        this.setState({firstNumber: this.state.firstNumber = this.state.firstNumber + this.state.numPress})
+      }
+      this.setState({result: this.state.result = this.state.firstNumber})
     }
     else {
-      this.setState({secondNumber: this.state.secondNumber = 1});
+      if (this.state.secondNumber === 0) {
+        this.setState({secondNumber: this.state.secondNumber = this.state.numPress});
+      }
+      else {
+        this.setState({secondNumber: this.state.secondNumber = this.state.secondNumber * 10});
+        this.setState({secondNumber: this.state.secondNumber = this.state.secondNumber + this.state.numPress})
+      }
+      this.setState({result: this.state.result = this.state.secondNumber})
   }
+  }
+
+  one = () => {
+    this.setState({numPress: this.state.numPress = 1});
+    this.numbers()
   }
   two = () => {
-    this.setState({result: this.state.result = 2})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 2})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 2});
-  }
+    this.setState({numPress: this.state.numPress = 2});
+    this.numbers()
   }
   three = () => {
-    this.setState({result: this.state.result = 3})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 3})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 3});
-  }
+    this.setState({numPress: this.state.numPress = 3});
+    this.numbers()
   }
   four = () => {
-    this.setState({result: this.state.result = 4})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 4})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 4});
-  }
+    this.setState({numPress: this.state.numPress = 4});
+    this.numbers()
   }
   five = () => {
-    this.setState({result: this.state.result = 5})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 5})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 5});
-  }
+    this.setState({numPress: this.state.numPress = 5});
+    this.numbers()
   }
   six = () => {
-    this.setState({result: this.state.result = 6})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 6})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 6});
-  }
+    this.setState({numPress: this.state.numPress = 6});
+    this.numbers()
   }
   seven = () => {
-    this.setState({result: this.state.result = 7})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 7})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 7});
-  }
+    this.setState({numPress: this.state.numPress = 7});
+    this.numbers()
   }
   eight = () => {
-    this.setState({result: this.state.result = 8})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 8})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 8});
-  }
+    this.setState({numPress: this.state.numPress = 8});
+    this.numbers()
   }
   nine = () => {
-    this.setState({result: this.state.result = 9})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 9})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 9});
-  }
+    this.setState({numPress: this.state.numPress = 9});
+    this.numbers()
   }
   zero = () => {
-    this.setState({result: this.state.result = 0})
-    if (this.state.mathsFunction === "blank") {
-      this.setState({firstNumber: this.state.firstNumber = 0})
-    }
-    else {
-      this.setState({secondNumber: this.state.secondNumber = 0});
-  }
+    this.setState({numPress: this.state.numPress = 0});
+    this.numbers()
   }
 
   plusButton = () => {
@@ -132,40 +107,51 @@ class App extends React.Component {
     if (this.state.mathsFunction === "/") {
     this.setState({result: this.state.result = this.state.firstNumber / this.state.secondNumber});
     }
-    this.setState({mathsFunction: this.state.mathsFunction = "blank"})
-    this.setState({firstNumber: this.state.firstNumber = this.state.result})
+    this.setState({mathsFunction: this.state.mathsFunction = "blank"});
+    this.setState({firstNumber: this.state.firstNumber = this.state.result});
+    this.setState({secondNumber: this.state.secondNumber = 0})
   }
   render() {
     
     return(
       <div>
-        <div id="display">
-          <h1>{this.state.result}</h1>
-        </div>
-        <div id="belowDisplay">
-          <button onClick={this.cancel}>C</button>
-        </div>
-        <div id="numbers">
-          <button onClick={this.one}>1</button>
-          <button onClick={this.two}>2</button>
-          <button onClick={this.three}>3</button>
-          <button onClick={this.four}>4</button>
-          <button onClick={this.five}>5</button>
-          <button onClick={this.six}>6</button>
-          <button onClick={this.seven}>7</button>
-          <button onClick={this.eight}>8</button>
-          <button onClick={this.nine}>9</button>
-          <button onClick={this.zero}>0</button>
+        <div id = "top">
+          <div id="display">
+            <h1>{this.state.result}</h1>
+          </div>
+          <div id="topFunctions">
+            <button>AC</button>
+            <button onClick={this.cancel}>C</button>
+            <button>M+</button>
+            <button>MR</button>
+          </div>
         </div>
 
-        <div id="functions">
-          <button onClick={this.plusButton}>+</button>
-          <button onClick={this.minusButton}>-</button>
-          <button onClick={this.multiply}>x</button>
-          <button onClick={this.divide}>/</button>
-          <button onClick={this.equals}>=</button>
+        <div id = "main">
+          <div id="numberpad">
+           <button onClick={this.one}>1</button>
+            <button onClick={this.two}>2</button>
+            <button onClick={this.three}>3</button>
+            <button onClick={this.four}>4</button>
+            <button onClick={this.five}>5</button>
+            <button onClick={this.six}>6</button>
+            <button onClick={this.seven}>7</button>
+            <button onClick={this.eight}>8</button>
+            <button onClick={this.nine}>9</button>
+            <button>.</button>
+            <button onClick={this.zero}>0</button>
+            <button></button>
+          </div>
+
+          <div id="sideFunctions">
+            <button onClick={this.plusButton}>+</button>
+            <button onClick={this.minusButton}>-</button>
+            <button onClick={this.multiply}>x</button>
+            <button onClick={this.divide}>/</button>
+            <button onClick={this.equals}>=</button>
+          </div>
         </div>
-        </div>
+      </div>
     );
   }
 }

@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+#all {
+  position: center;
+}
+
+#display {
+  background-color: black;
+  color: yellow;
+  width: 400px;
+  padding: 5px 0px;
+  text-align: center;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+}
+
+
+#main {
+  display: flex;
+}
+
+#numberpad {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px
+}
+
+#numberpad button {
+  height: 25%
+}
+
+#sideFunctions {
+  display: flex;
+  flex-direction: column;
+
+}
+
