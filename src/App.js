@@ -7,23 +7,51 @@ class App extends React.Component {
     result: 0,
     currentNum: 0,
     numbersSelected: [],
-    mathsFunction: []
+    mathsFunction: [],
+    equalPressed: false,
+    decimalDivider: 1,
+    memory: 0
   }
 
+
+  // cancel and memory buttons
   cancel = () => {
     this.setState({result: this.state.result = 0});
     this.setState({currentNum: this.state.currentNum = 0});
+    this.setState({decimalDivider: this.state.decimalDivider = 1});
     this.setState({mathsFunction: []});
     this.setState({numbersSelected: []})
   }
+  memCancel = () => {
+    this.setState({memory: this.state.memory = 0})
+  }
+  memPlus = () => {
+    this.setState({memory: this.state.memory = this.state.memory + this.state.result})
+  }
+  memRecall = () => {
+    this.setState({result: this.state.result = this.state.memory});
+    this.setState({currentNum: this.state.currentNum = this.state.memory})
+  }
 
+
+  // number buttons
   numbers = (numPress) => {
-    if (this.state.currentNum === 0) {
-      this.setState({currentNum: this.state.currentNum = numPress})
+    if (this.state.equalPressed === true) {
+      this.setState({currentNum: this.state.currentNum = 0});
+      this.setState({equalPressed: this.state.equalPressed = false});
     }
-    else {
-      this.setState({currentNum: this.state.currentNum = this.state.currentNum * 10});
-      this.setState({currentNum: this.state.currentNum = this.state.currentNum + numPress})
+    if (this.state.decimalDivider > 1) {
+      this.setState({currentNum: this.state.currentNum = this.state.currentNum + numPress / this.state.decimalDivider});
+      this.setState({decimalDivider: this.state.decimalDivider = this.state.decimalDivider * 10})
+    }
+    else{
+      if (this.state.currentNum === 0) {
+        this.setState({currentNum: this.state.currentNum = numPress})
+      }
+      else {
+        this.setState({currentNum: this.state.currentNum = this.state.currentNum * 10});
+        this.setState({currentNum: this.state.currentNum = this.state.currentNum + numPress})
+      }
     }
     this.setState({result: this.state.result = this.state.currentNum})
   }
@@ -59,6 +87,14 @@ class App extends React.Component {
     this.numbers(0)
   }
 
+  decimal = () => {
+    if (this.state.decimalDivider < 10) {
+      this.setState({decimalDivider: this.state.decimalDivider = this.state.decimalDivider * 10})
+    }
+  }
+
+// mathematical function buttons
+
   plusButton = () => {
     let tempNumArray = this.state.numbersSelected
     tempNumArray.push(this.state.currentNum)
@@ -67,6 +103,7 @@ class App extends React.Component {
     tempMathsArray.push("+")
     this.setState({mathsFunction: tempMathsArray})
     this.setState({currentNum: this.state.currentNum = 0});
+    this.setState({decimalDivider: this.state.decimalDivider = 1})
   }
 
   minusButton = () => {
@@ -77,6 +114,7 @@ class App extends React.Component {
     tempMathsArray.push("-")
     this.setState({mathsFunction: tempMathsArray})
     this.setState({currentNum: this.state.currentNum = 0});
+    this.setState({decimalDivider: this.state.decimalDivider = 1});
   }
 
   multiply = () => {
@@ -87,6 +125,7 @@ class App extends React.Component {
     tempMathsArray.push("*")
     this.setState({mathsFunction: tempMathsArray})
     this.setState({currentNum: this.state.currentNum = 0});
+    this.setState({decimalDivider: this.state.decimalDivider = 1});
   }
   divide = () => {
     let tempNumArray = this.state.numbersSelected
@@ -96,8 +135,20 @@ class App extends React.Component {
     tempMathsArray.push("/")
     this.setState({mathsFunction: tempMathsArray})
     this.setState({currentNum: this.state.currentNum = 0});
+    this.setState({decimalDivider: this.state.decimalDivider = 1});
   }
 
+  squareRoot = () => {
+    let tempNumArray = this.state.numbersSelected
+    tempNumArray.push(this.state.currentNum)
+    this.setState({numbersSelected: tempNumArray})
+    this.setState({result: this.state.result = Math.sqrt(this.state.currentNum)});
+    this.setState({currentNum: this.state.currentNum = 0});
+    this.setState({decimalDivider: this.state.decimalDivider = 1});
+  }
+
+
+  // And the calculation itself
   equals = () => {
     let tempNumArray = this.state.numbersSelected
     tempNumArray.push(this.state.currentNum)
@@ -123,6 +174,8 @@ class App extends React.Component {
     }
     this.setState({result: this.state.result = runningTotal});
     this.setState({currentNum: this.state.currentNum = this.state.result});
+    this.setState({equalPressed: this.state.equalPressed = true});
+    this.setState({decimalDivider: this.state.decimalDivider = 1});
     this.setState({mathsFunction: []});
     this.setState({numbersSelected: []});
   }
@@ -133,13 +186,14 @@ class App extends React.Component {
       <div>
         <div id = "top">
           <div id="display">
+            <p>{this.state.memory}</p>
             <h1>{this.state.result}</h1>
           </div>
           <div id="topFunctions">
             <button onClick={this.cancel}>AC</button>
-            <button onClick={this.cancel}>C</button>
-            <button>M+</button>
-            <button>MR</button>
+            <button onClick={this.memCancel}>MC</button>
+            <button onClick={this.memPlus}>M+</button>
+            <button onClick={this.memRecall}>MR</button>
           </div>
         </div>
 
@@ -154,9 +208,9 @@ class App extends React.Component {
             <button onClick={this.seven}>7</button>
             <button onClick={this.eight}>8</button>
             <button onClick={this.nine}>9</button>
-            <button>.</button>
+            <button onClick={this.decimal}>.</button>
             <button onClick={this.zero}>0</button>
-            <button>&#8730;</button>
+            <button onClick={this.squareRoot}>&#8730;</button>
           </div>
 
           <div id="sideFunctions">
