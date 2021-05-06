@@ -5,112 +5,128 @@ import React from 'react';
 class App extends React.Component {
   state = {
     result: 0,
-    numPress: 0,
-    firstNumber: 0,
-    secondNumber: 0,
-    mathsFunction: "blank"
+    currentNum: 0,
+    numbersSelected: [],
+    mathsFunction: []
   }
 
   cancel = () => {
-    this.setState({result: this.state.result = 0})
-    this.setState({firstNumber: this.state.firstNumber = 0})
+    this.setState({result: this.state.result = 0});
+    this.setState({currentNum: this.state.currentNum = 0});
+    this.setState({mathsFunction: []});
+    this.setState({numbersSelected: []})
   }
 
-  numbers = () => {
-    if (this.state.mathsFunction === "blank") {
-      if (this.state.firstNumber === 0) {
-        this.setState({firstNumber: this.state.firstNumber = this.state.numPress})
-      }
-      else {
-        this.setState({firstNumber: this.state.firstNumber = this.state.firstNumber * 10});
-        this.setState({firstNumber: this.state.firstNumber = this.state.firstNumber + this.state.numPress})
-      }
-      this.setState({result: this.state.result = this.state.firstNumber})
+  numbers = (numPress) => {
+    if (this.state.currentNum === 0) {
+      this.setState({currentNum: this.state.currentNum = numPress})
     }
     else {
-      if (this.state.secondNumber === 0) {
-        this.setState({secondNumber: this.state.secondNumber = this.state.numPress});
-      }
-      else {
-        this.setState({secondNumber: this.state.secondNumber = this.state.secondNumber * 10});
-        this.setState({secondNumber: this.state.secondNumber = this.state.secondNumber + this.state.numPress})
-      }
-      this.setState({result: this.state.result = this.state.secondNumber})
-  }
+      this.setState({currentNum: this.state.currentNum = this.state.currentNum * 10});
+      this.setState({currentNum: this.state.currentNum = this.state.currentNum + numPress})
+    }
+    this.setState({result: this.state.result = this.state.currentNum})
   }
 
   one = () => {
-    this.setState({numPress: this.state.numPress = 1});
-    this.numbers()
+    this.numbers(1)
   }
   two = () => {
-    this.setState({numPress: this.state.numPress = 2});
-    this.numbers()
+    this.numbers(2)
   }
   three = () => {
-    this.setState({numPress: this.state.numPress = 3});
-    this.numbers()
+    this.numbers(3)
   }
   four = () => {
-    this.setState({numPress: this.state.numPress = 4});
-    this.numbers()
+    this.numbers(4)
   }
   five = () => {
-    this.setState({numPress: this.state.numPress = 5});
-    this.numbers()
+    this.numbers(5)
   }
   six = () => {
-    this.setState({numPress: this.state.numPress = 6});
-    this.numbers()
+    this.numbers(6)
   }
   seven = () => {
-    this.setState({numPress: this.state.numPress = 7});
-    this.numbers()
+    this.numbers(7)
   }
   eight = () => {
-    this.setState({numPress: this.state.numPress = 8});
-    this.numbers()
+    this.numbers(8)
   }
   nine = () => {
-    this.setState({numPress: this.state.numPress = 9});
-    this.numbers()
+    this.numbers(9)
   }
   zero = () => {
-    this.setState({numPress: this.state.numPress = 0});
-    this.numbers()
+    this.numbers(0)
   }
 
   plusButton = () => {
-    this.setState({mathsFunction: this.state.mathsFunction = "+"});
+    let tempNumArray = this.state.numbersSelected
+    tempNumArray.push(this.state.currentNum)
+    this.setState({numbersSelected: tempNumArray})
+    let tempMathsArray = this.state.mathsFunction
+    tempMathsArray.push("+")
+    this.setState({mathsFunction: tempMathsArray})
+    this.setState({currentNum: this.state.currentNum = 0});
   }
 
   minusButton = () => {
-    this.setState({mathsFunction: this.state.mathsFunction = "-"});
+    let tempNumArray = this.state.numbersSelected
+    tempNumArray.push(this.state.currentNum)
+    this.setState({numbersSelected: tempNumArray})
+    let tempMathsArray = this.state.mathsFunction
+    tempMathsArray.push("-")
+    this.setState({mathsFunction: tempMathsArray})
+    this.setState({currentNum: this.state.currentNum = 0});
   }
 
   multiply = () => {
-    this.setState({mathsFunction: this.state.mathsFunction= "*"});
+    let tempNumArray = this.state.numbersSelected
+    tempNumArray.push(this.state.currentNum)
+    this.setState({numbersSelected: tempNumArray})
+    let tempMathsArray = this.state.mathsFunction
+    tempMathsArray.push("*")
+    this.setState({mathsFunction: tempMathsArray})
+    this.setState({currentNum: this.state.currentNum = 0});
   }
   divide = () => {
-    this.setState({mathsFunction: this.state.mathsFunction = "/"})
+    let tempNumArray = this.state.numbersSelected
+    tempNumArray.push(this.state.currentNum)
+    this.setState({numbersSelected: tempNumArray})
+    let tempMathsArray = this.state.mathsFunction
+    tempMathsArray.push("/")
+    this.setState({mathsFunction: tempMathsArray})
+    this.setState({currentNum: this.state.currentNum = 0});
   }
+
   equals = () => {
-    if (this.state.mathsFunction === "+") {
-      this.setState({result: this.state.result = this.state.firstNumber + this.state.secondNumber});
+    let tempNumArray = this.state.numbersSelected
+    tempNumArray.push(this.state.currentNum)
+    this.setState({numbersSelected: tempNumArray})
+    let runningTotal = 0;
+    let i
+    for (i in this.state.numbersSelected) {
+      if (this.state.mathsFunction[i-1] === "+") {
+        runningTotal = runningTotal + this.state.numbersSelected[i]
+      }
+      else if (this.state.mathsFunction[i-1] === "-") {
+        runningTotal = runningTotal - this.state.numbersSelected[i]
+      }
+      else if (this.state.mathsFunction[i-1] === "*") {
+        runningTotal = runningTotal * this.state.numbersSelected[i]
+      }
+      else if (this.state.mathsFunction[i-1] === "/") {
+        runningTotal = runningTotal / this.state.numbersSelected[i]
+      }
+      else {
+        runningTotal = this.state.numbersSelected[i]
+      }
     }
-    if (this.state.mathsFunction === "-") {
-      this.setState({result: this.state.result = this.state.firstNumber - this.state.secondNumber});
-    }
-    if (this.state.mathsFunction === "*") {
-      this.setState({result: this.state.result = this.state.firstNumber * this.state.secondNumber});
-    }
-    if (this.state.mathsFunction === "/") {
-    this.setState({result: this.state.result = this.state.firstNumber / this.state.secondNumber});
-    }
-    this.setState({mathsFunction: this.state.mathsFunction = "blank"});
-    this.setState({firstNumber: this.state.firstNumber = this.state.result});
-    this.setState({secondNumber: this.state.secondNumber = 0})
+    this.setState({result: this.state.result = runningTotal});
+    this.setState({currentNum: this.state.currentNum = this.state.result});
+    this.setState({mathsFunction: []});
+    this.setState({numbersSelected: []});
   }
+    
   render() {
     
     return(
@@ -120,7 +136,7 @@ class App extends React.Component {
             <h1>{this.state.result}</h1>
           </div>
           <div id="topFunctions">
-            <button>AC</button>
+            <button onClick={this.cancel}>AC</button>
             <button onClick={this.cancel}>C</button>
             <button>M+</button>
             <button>MR</button>
@@ -140,7 +156,7 @@ class App extends React.Component {
             <button onClick={this.nine}>9</button>
             <button>.</button>
             <button onClick={this.zero}>0</button>
-            <button></button>
+            <button>&#8730;</button>
           </div>
 
           <div id="sideFunctions">
