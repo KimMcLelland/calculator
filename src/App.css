@@ -37,8 +37,22 @@
   }
 }
 
+#page {
+  display: flex;
+  height: 575px;
+  justify-content: center;
+  align-items: center;
+  background-color: navy;
+}
 
-
+#calculator {
+  width: 425px;
+  background-color: gray;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #display {
   background-color: black;
   color: yellow;

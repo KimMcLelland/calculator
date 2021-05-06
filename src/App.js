@@ -183,7 +183,9 @@ class App extends React.Component {
   render() {
     
     return(
-      <div>
+      <div id="page">
+        <div id = "calculator">
+        <div id = "controls">
         <div id = "top">
           <div id="display">
             <p>{this.state.memory}</p>
@@ -220,6 +222,8 @@ class App extends React.Component {
             <button onClick={this.divide}>/</button>
             <button onClick={this.equals}>=</button>
           </div>
+        </div>
+        </div>
         </div>
       </div>
     );
