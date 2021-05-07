@@ -192,7 +192,7 @@ class App extends React.Component {
             <h1>{this.state.result}</h1>
           </div>
           <div id="topFunctions">
-            <button onClick={this.cancel}>AC</button>
+            <button id="C" onClick={this.cancel}>AC</button>
             <button onClick={this.memCancel}>MC</button>
             <button onClick={this.memPlus}>M+</button>
             <button onClick={this.memRecall}>MR</button>
