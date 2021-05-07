@@ -201,25 +201,25 @@ class App extends React.Component {
 
         <div id = "main">
           <div id="numberpad">
-           <button onClick={this.one}>1</button>
-            <button onClick={this.two}>2</button>
-            <button onClick={this.three}>3</button>
+          <button onClick={this.seven}>7</button>
+            <button onClick={this.eight}>8</button>
+            <button onClick={this.nine}>9</button>
             <button onClick={this.four}>4</button>
             <button onClick={this.five}>5</button>
             <button onClick={this.six}>6</button>
-            <button onClick={this.seven}>7</button>
-            <button onClick={this.eight}>8</button>
-            <button onClick={this.nine}>9</button>
+            <button onClick={this.one}>1</button>
+            <button onClick={this.two}>2</button>
+            <button onClick={this.three}>3</button>
             <button onClick={this.decimal}>.</button>
             <button onClick={this.zero}>0</button>
             <button onClick={this.squareRoot}>&#8730;</button>
           </div>
 
           <div id="sideFunctions">
-            <button onClick={this.plusButton}>+</button>
-            <button onClick={this.minusButton}>-</button>
-            <button onClick={this.multiply}>x</button>
             <button onClick={this.divide}>/</button>
+            <button onClick={this.multiply}>x</button>
+            <button onClick={this.minusButton}>-</button>
+            <button onClick={this.plusButton}>+</button>
             <button onClick={this.equals}>=</button>
           </div>
         </div>
